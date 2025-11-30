@@ -136,6 +136,17 @@
     box-shadow: var(--shadow-xl), var(--shadow-glow);
     transition: all var(--transition-base);
     animation: blob-morph 8s ease-in-out infinite;
+
+    /* Prevent downloading and copying */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: auto;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
 }
 
 .profile-image:hover {

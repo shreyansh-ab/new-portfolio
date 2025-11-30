@@ -54,7 +54,13 @@ const Home = () => {
 
                     <div className="home-image animate-fadeIn">
                         {/* Add your photo here - place it as /public/profile.jpg */}
-                        <img src="/profile.jpg" alt="Shreyansh" className="profile-image" />
+                        <img
+                            src="/profile.jpg"
+                            alt="Shreyansh"
+                            className="profile-image"
+                            onContextMenu={(e) => e.preventDefault()}
+                            onDragStart={(e) => e.preventDefault()}
+                        />
                         {/* Placeholder - remove once you add your photo */}
                         {/* <div className="image-placeholder">
                             <p>Add your photo</p>
