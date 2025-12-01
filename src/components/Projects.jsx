@@ -15,6 +15,14 @@ const Projects = () => {
                 github: 'https://github.com/shreyansh-ab/tic-tac-toe',
                 demo: 'https://tictactoe-proje.netlify.app/',
             },
+            {
+                id: 3,
+                name: 'Snake Game',
+                description: 'Classic snake game built with vanilla JavaScript and HTML5 Canvas featuring score tracking and smooth gameplay.',
+                technologies: ['JavaScript', 'HTML5', 'CSS3'],
+                github: 'https://github.com/shreyansh-ab/snake-game',
+                demo: 'https://proj-snake-game.vercel.app/',
+            },
         ],
         'Mini Projects': [
             {
