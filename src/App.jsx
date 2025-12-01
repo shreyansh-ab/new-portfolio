@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
-import Nexlinc from './components/Nexlinc';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
@@ -135,7 +134,6 @@ function App() {
             <Navbar />
             <Home />
             <About />
-            <Nexlinc />
             <Skills />
             <Projects />
             <Contact />
