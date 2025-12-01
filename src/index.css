@@ -55,6 +55,32 @@
   --shadow-glow: 0 0 20px var(--accent-glow);
 }
 
+/* Light Theme */
+:root.light-theme {
+  /* Light Theme Colors */
+  --bg-primary: #f8fafc;
+  --bg-secondary: rgba(241, 245, 249, 0.8);
+  --bg-tertiary: rgba(226, 232, 240, 0.6);
+  --bg-card: rgba(255, 255, 255, 0.9);
+
+  /* Text Colors for Light Theme */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+
+  /* Border & Effects for Light Theme */
+  --border-color: rgba(0, 0, 0, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(0, 0, 0, 0.1);
+
+  /* Shadows for Light Theme */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+  --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -73,6 +99,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition-base), color var(--transition-base);
 }
 
 /* Scrollbar Styling */
@@ -96,7 +123,7 @@ body {
 /* Selection */
 ::selection {
   background-color: var(--accent-primary);
-  color: var(--text-primary);
+  color: #ffffff;
 }
 
 /* Particle Constellation Canvas */
@@ -109,6 +136,7 @@ body {
   pointer-events: none;
   z-index: 0;
   background: var(--bg-primary);
+  transition: background-color var(--transition-base);
 }
 
 /* Typography */
@@ -223,7 +251,7 @@ a:hover {
 
 .btn-primary {
   background: var(--accent-gradient);
-  color: var(--text-primary);
+  color: #ffffff;
   box-shadow: var(--shadow-md);
 }
 
@@ -239,17 +267,6 @@ a:hover {
 }
 
 .btn-outline:hover {
-  background: var(--accent-primary);
-  color: var(--text-primary);
-  transform: translateY(-2px);
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
 
   to {
     opacity: 1;
@@ -361,20 +378,6 @@ a:hover {
 
   h3 {
     font-size: var(--font-size-2xl);
-  }
-
-  .section {
-    padding: var(--spacing-xl) 0;
-  }
-
-  .container {
-    padding: 0 var(--spacing-sm);
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: var(--font-size-3xl);
   }
 
   h2 {
