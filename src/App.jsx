@@ -98,7 +98,7 @@ function App() {
 
                     if (distance < mouse.radius) {
                         const opacity = 1 - distance / mouse.radius;
-                        ctx.strokeStyle = `rgba(6, 182, 212, ${opacity * 0.5})`;
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${opacity * 0.5})`;
                         ctx.lineWidth = 2;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);

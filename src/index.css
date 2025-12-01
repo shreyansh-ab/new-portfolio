@@ -5,10 +5,10 @@
   --bg-tertiary: rgba(26, 26, 36, 0.5);
   --bg-card: rgba(26, 26, 36, 0.6);
 
-  /* Accent Colors - Blue Theme */
+  /* Accent Colors - Blue with Green Accents */
   --accent-primary: #3b82f6;
-  --accent-secondary: #06b6d4;
-  --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+  --accent-secondary: #10b981;
+  --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
   --accent-glow: rgba(59, 130, 246, 0.3);
 
   /* Text Colors */
