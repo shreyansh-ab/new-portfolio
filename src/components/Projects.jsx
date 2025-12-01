@@ -16,18 +16,19 @@ const Projects = () => {
                 demo: 'https://tictactoe-proje.netlify.app/',
             },
         ],
+        'Mini Projects': [
+            {
+                id: 2,
+                name: 'Deshtrek',
+                description: 'A modern travel agency website showcasing destinations, tour packages, and travel services with an elegant and responsive design.',
+                technologies: ['HTML5', 'CSS3', 'JavaScript'],
+                github: 'https://github.com/shreyansh-ab/deshtrek',
+                demo: 'https://deshtrek.netlify.app/',
+            },
+        ],
     };
 
-    const mainProjects = [
-        {
-            id: 2,
-            name: 'Deshtrek',
-            description: 'A modern travel agency website showcasing destinations, tour packages, and travel services with an elegant and responsive design.',
-            technologies: ['HTML5', 'CSS3', 'JavaScript'],
-            github: 'https://github.com/shreyansh-ab/deshtrek',
-            demo: 'https://deshtrek.netlify.app/',
-        },
-    ];
+    const mainProjects = [];
 
     const toggleFolder = (folderName) => {
         setOpenFolder(openFolder === folderName ? null : folderName);

@@ -43,7 +43,7 @@ const Home = () => {
                             <a href="https://github.com/shreyansh-ab" target="_blank" rel="noopener noreferrer" className="social-icon">
                                 <FaGithub />
                             </a>
-                            <a href="https://www.linkedin.com/in/shreyansh-b-037603334" target="_blank" rel="noopener noreferrer" className="social-icon">
+                            <a href="https://www.linkedin.com/in/shreyansh-ab456shreyansh" target="_blank" rel="noopener noreferrer" className="social-icon">
                                 <FaLinkedin />
                             </a>
                             <a href="mailto:shreyanshborannavar45@gmail.com" className="social-icon">

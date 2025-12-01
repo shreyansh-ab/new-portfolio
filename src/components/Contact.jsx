@@ -7,7 +7,7 @@ const Contact = () => {
         {
             name: 'LinkedIn',
             icon: <FaLinkedin />,
-            url: 'https://www.linkedin.com/in/shreyansh-b-037603334',
+            url: 'https://www.linkedin.com/in/shreyansh-ab456shreyansh',
             color: '#0077B5',
             description: 'Let\'s connect professionally',
         },
