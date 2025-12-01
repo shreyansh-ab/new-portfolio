@@ -6,60 +6,26 @@ const Projects = () => {
     const [openFolder, setOpenFolder] = useState(null);
 
     const folders = {
-        'Mini Projects': [
-            {
-                id: 3,
-                name: 'Todo List App',
-                description: 'A simple todo list application with local storage support.',
-                technologies: ['React', 'LocalStorage'],
-                github: 'https://github.com',
-                demo: 'https://example.com',
-            },
-            {
-                id: 4,
-                name: 'Calculator',
-                description: 'Modern calculator with basic arithmetic operations.',
-                technologies: ['JavaScript', 'CSS3'],
-                github: 'https://github.com',
-                demo: 'https://example.com',
-            },
-        ],
         'JS Games': [
             {
                 id: 1,
-                name: 'Snake Game',
-                description: 'Classic snake game built with vanilla JavaScript and HTML5 Canvas.',
-                technologies: ['JavaScript', 'HTML5', 'CSS3'],
-                github: 'https://github.com',
-                demo: 'https://example.com',
-            },
-            {
-                id: 2,
                 name: 'Tic Tac Toe',
                 description: 'Interactive tic-tac-toe game with AI opponent and score tracking.',
-                technologies: ['JavaScript', 'CSS3'],
-                github: 'https://github.com',
-                demo: 'https://example.com',
+                technologies: ['JavaScript', 'HTML5', 'CSS3'],
+                github: 'https://github.com/shreyansh-ab/tic-tac-toe',
+                demo: 'https://tictactoe-proje.netlify.app/',
             },
         ],
     };
 
     const mainProjects = [
         {
-            id: 5,
-            name: 'E-Commerce Platform',
-            description: 'Full-stack e-commerce application with product catalog, shopping cart, and payment integration.',
-            technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
-            github: 'https://github.com',
-            demo: 'https://example.com',
-        },
-        {
-            id: 6,
-            name: 'Social Media Dashboard',
-            description: 'Analytics dashboard for social media management with real-time data visualization and reporting.',
-            technologies: ['React', 'TypeScript', 'Chart.js', 'Firebase'],
-            github: 'https://github.com',
-            demo: 'https://example.com',
+            id: 2,
+            name: 'Deshtrek',
+            description: 'A modern travel agency website showcasing destinations, tour packages, and travel services with an elegant and responsive design.',
+            technologies: ['HTML5', 'CSS3', 'JavaScript'],
+            github: 'https://github.com/shreyansh-ab/deshtrek',
+            demo: 'https://deshtrek.netlify.app/',
         },
     ];
 
