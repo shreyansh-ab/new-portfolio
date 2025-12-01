@@ -40,10 +40,10 @@ const Home = () => {
                         </div>
 
                         <div className="home-socials">
-                            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-icon">
+                            <a href="https://github.com/shreyansh-ab" target="_blank" rel="noopener noreferrer" className="social-icon">
                                 <FaGithub />
                             </a>
-                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon">
+                            <a href="https://www.linkedin.com/in/shreyansh-b-037603334" target="_blank" rel="noopener noreferrer" className="social-icon">
                                 <FaLinkedin />
                             </a>
                             <a href="mailto:shreyanshborannavar45@gmail.com" className="social-icon">

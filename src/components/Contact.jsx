@@ -7,14 +7,14 @@ const Contact = () => {
         {
             name: 'LinkedIn',
             icon: <FaLinkedin />,
-            url: 'https://linkedin.com',
+            url: 'https://www.linkedin.com/in/shreyansh-b-037603334',
             color: '#0077B5',
             description: 'Let\'s connect professionally',
         },
         {
             name: 'Email',
             icon: <FaEnvelope />,
-            url: 'mailto:your.email@example.com',
+            url: 'mailto:shreyanshborannavar45@gmail.com',
             color: '#EA4335',
             description: 'Send me a message',
         },
