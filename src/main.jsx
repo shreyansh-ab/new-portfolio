@@ -8,3 +8,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <App />
     </React.StrictMode>,
 )
+
+// Hide preloader with a minimum display time
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        // Remove preloader instantly when loading bar completes (4 seconds)
+        setTimeout(() => {
+            preloader.remove();
+        }, 4000); // Matches loading bar animation duration
+    }
+});

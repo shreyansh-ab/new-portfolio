@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glitch Cyberpunk Loader Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Preloader Styles - Glitch/Cyberpunk Theme */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0f 0%, #13131a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease-out, visibility 1s ease-out;
+            overflow: hidden;
+        }
+
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Scan Lines Effect */
+        #preloader::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg,
+                    rgba(0, 0, 0, 0.15),
+                    rgba(0, 0, 0, 0.15) 1px,
+                    transparent 1px,
+                    transparent 2px);
+            pointer-events: none;
+            z-index: 2;
+            animation: scanlines 8s linear infinite;
+        }
+
+        /* Moving Scan Line */
+        #preloader::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.8), transparent);
+            animation: scanning 3s linear infinite;
+            z-index: 3;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+        }
+
+        .preloader-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Glitch Text Effect */
+        .glitch-text {
+            font-size: 3.5rem;
+            font-weight: 900;
+            font-family: 'Orbitron', 'Inter', sans-serif;
+            text-transform: uppercase;
+            position: relative;
+            color: #fff;
+            letter-spacing: 0.1em;
+            animation: glitch-skew 2s infinite;
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Red Channel */
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00de;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim-1 3s infinite linear alternate-reverse;
+        }
+
+        /* Cyan Channel */
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9, 2px 2px #ff00de;
+            animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+        }
+
+        /* Gradient Text */
+        .glitch-text span {
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Loading Bar */
+        .loading-bar-container {
+            width: 300px;
+            height: 3px;
+            background: rgba(59, 130, 246, 0.2);
+            margin: 3rem auto 0 auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff00de, #00fff9, #3b82f6, #10b981);
+            background-size: 200% 100%;
+            animation: loadingProgress 2s ease-in-out infinite, gradientShift 3s linear infinite;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+        }
+
+        .loading-text {
+            color: #00fff9;
+            font-size: 0.75rem;
+            margin-top: 1rem;
+            font-family: 'Orbitron', 'Inter', sans-serif;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            animation: textPulse 1.5s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(0, 255, 249, 0.8);
+        }
+
+        /* Cyber Grid Background */
+        .cyber-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+
+        /* Animations */
+        @keyframes glitch-anim-1 {
+
+            0%,
+            100% {
+                clip: rect(42px, 9999px, 44px, 0);
+            }
+
+            10% {
+                clip: rect(12px, 9999px, 59px, 0);
+            }
+
+            20% {
+                clip: rect(48px, 9999px, 29px, 0);
+            }
+
+            30% {
+                clip: rect(18px, 9999px, 83px, 0);
+            }
+
+            40% {
+                clip: rect(32px, 9999px, 52px, 0);
+            }
+
+            50% {
+                clip: rect(26px, 9999px, 40px, 0);
+            }
+
+            60% {
+                clip: rect(51px, 9999px, 14px, 0);
+            }
+
+            70% {
+                clip: rect(2px, 9999px, 37px, 0);
+            }
+
+            80% {
+                clip: rect(28px, 9999px, 65px, 0);
+            }
+
+            90% {
+                clip: rect(16px, 9999px, 45px, 0);
+            }
+        }
+
+        @keyframes glitch-anim-2 {
+
+            0%,
+            100% {
+                clip: rect(65px, 9999px, 100px, 0);
+            }
+
+            10% {
+                clip: rect(31px, 9999px, 62px, 0);
+            }
+
+            20% {
+                clip: rect(76px, 9999px, 17px, 0);
+            }
+
+            30% {
+                clip: rect(45px, 9999px, 89px, 0);
+            }
+
+            40% {
+                clip: rect(54px, 9999px, 38px, 0);
+            }
+
+            50% {
+                clip: rect(22px, 9999px, 71px, 0);
+            }
+
+            60% {
+                clip: rect(67px, 9999px, 25px, 0);
+            }
+
+            70% {
+                clip: rect(8px, 9999px, 51px, 0);
+            }
+
+            80% {
+                clip: rect(73px, 9999px, 4px, 0);
+            }
+
+            90% {
+                clip: rect(39px, 9999px, 86px, 0);
+            }
+        }
+
+        @keyframes glitch-skew {
+
+            0%,
+            100% {
+                transform: skew(0deg);
+            }
+
+            20% {
+                transform: skew(-2deg);
+            }
+
+            40% {
+                transform: skew(2deg);
+            }
+
+            60% {
+                transform: skew(-1deg);
+            }
+
+            80% {
+                transform: skew(1deg);
+            }
+        }
+
+        @keyframes scanlines {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(10px);
+            }
+        }
+
+        @keyframes scanning {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        @keyframes loadingProgress {
+            0% {
+                width: 0%;
+            }
+
+            50% {
+                width: 70%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        @keyframes textPulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(50px);
+            }
+        }
+
+        /* Main content styles */
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0f;
+            color: white;
+        }
+
+        .main-content {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 2rem;
+        }
+
+        .main-content h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .main-content p {
+            color: #a1a1aa;
+            font-size: 1.125rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .glitch-text {
+                font-size: 2rem;
+            }
+
+            .loading-bar-container {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="preloader">
+        <div class="cyber-grid"></div>
+        <div class="preloader-content">
+            <div class="glitch-text" data-text="SHREYANSH_AB">
+                <span>SHREYANSH_AB</span>
+            </div>
+            <div class="loading-bar-container">
+                <div class="loading-bar"></div>
+            </div>
+            <div class="loading-text">Loading</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>Welcome to Shreyansh_AB's Portfolio</h1>
+        <p>Cyberpunk glitch loading screen with RGB chromatic aberration!</p>
+    </div>
+
+    <script>
+        // Simulate loading time, then hide preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                if (preloader) {
+                    preloader.classList.add('fade-out');
+                    setTimeout(() => {
+                        preloader.remove();
+                    }, 1000);
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>
