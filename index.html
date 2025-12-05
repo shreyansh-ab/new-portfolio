@@ -11,479 +11,374 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@700;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700;900&display=swap"
     rel="stylesheet">
   <title>Shreyansh_AB</title>
   <style>
-    /* Preloader Styles - Glitch/Cyberpunk Theme */
+    /* JARVIS-Style Loading Screen */
     #preloader {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #0a0a0f 0%, #13131a 100%);
+      background: #000000;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 9999;
-      transition: opacity 1s ease-out, visibility 1s ease-out;
       overflow: hidden;
+      transition: opacity 0.4s ease-out;
     }
 
     #preloader.fade-out {
       opacity: 0;
-      visibility: hidden;
     }
 
-    /* Scan Lines Effect */
-    #preloader::before {
-      content: '';
+    /* HUD Corner Elements */
+    .hud-corners {
       position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
-      background: repeating-linear-gradient(0deg,
-          rgba(0, 0, 0, 0.15),
-          rgba(0, 0, 0, 0.15) 1px,
-          transparent 1px,
-          transparent 2px);
       pointer-events: none;
-      z-index: 2;
-      animation: scanlines 8s linear infinite;
     }
 
-    /* Moving Scan Line */
-    #preloader::after {
-      content: '';
+    .hud-corner {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.8), transparent);
-      animation: scanning 3s linear infinite;
-      z-index: 3;
-      box-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+      width: 150px;
+      height: 150px;
+      border: 2px solid rgba(0, 168, 255, 0.6);
     }
 
-    .preloader-content {
+    .hud-corner.top-left {
+      top: 30px;
+      left: 30px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .hud-corner.top-right {
+      top: 30px;
+      right: 30px;
+      border-left: none;
+      border-bottom: none;
+    }
+
+    .hud-corner.bottom-left {
+      bottom: 30px;
+      left: 30px;
+      border-right: none;
+      border-top: none;
+    }
+
+    .hud-corner.bottom-right {
+      bottom: 30px;
+      right: 30px;
+      border-left: none;
+      border-top: none;
+    }
+
+    /* Arc Reactor */
+    .arc-reactor {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin-bottom: 3rem;
+    }
+
+    .arc-core {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, #00d9ff 0%, #0088cc 50%, #004466 100%);
+      border-radius: 50%;
+      box-shadow:
+        0 0 40px rgba(0, 217, 255, 0.8),
+        0 0 80px rgba(0, 217, 255, 0.6),
+        0 0 120px rgba(0, 217, 255, 0.4),
+        inset 0 0 30px rgba(255, 255, 255, 0.3);
+      animation: reactorPulse 2s ease-in-out infinite;
+    }
+
+    .arc-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 2px solid rgba(0, 217, 255, 0.5);
+      animation: ringExpand 2s ease-out infinite;
+    }
+
+    .arc-ring:nth-child(2) {
+      width: 100px;
+      height: 100px;
+      animation-delay: 0s;
+    }
+
+    .arc-ring:nth-child(3) {
+      width: 130px;
+      height: 130px;
+      animation-delay: 0.3s;
+    }
+
+    .arc-ring:nth-child(4) {
+      width: 160px;
+      height: 160px;
+      animation-delay: 0.6s;
+    }
+
+    .arc-ring:nth-child(5) {
+      width: 190px;
+      height: 190px;
+      animation-delay: 0.9s;
+    }
+
+    /* System Messages */
+    .system-status {
       text-align: center;
-      position: relative;
-      z-index: 4;
+      font-family: 'Orbitron', monospace;
+      color: #00d9ff;
+      margin-top: 2rem;
     }
 
-    /* Glitch Text Effect */
-    .glitch-text {
-      font-size: 3.5rem;
-      font-weight: 900;
-      font-family: 'Orbitron', 'Inter', sans-serif;
-      text-transform: uppercase;
-      position: relative;
-      color: #fff;
+    .status-message {
+      font-size: 1.2rem;
       letter-spacing: 0.1em;
-      animation: glitch-skew 2s infinite;
+      text-shadow: 0 0 10px rgba(0, 217, 255, 0.8);
+      margin-bottom: 1rem;
+      animation: textGlow 2s ease-in-out infinite;
     }
 
-    .glitch-text::before,
-    .glitch-text::after {
-      content: attr(data-text);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    .system-readout {
+      font-size: 0.9rem;
+      color: rgba(0, 217, 255, 0.7);
+      margin: 0.5rem 0;
+      font-family: 'Orbitron', monospace;
     }
 
-    /* Red Channel */
-    .glitch-text::before {
-      left: 2px;
-      text-shadow: -2px 0 #ff00de;
-      clip: rect(44px, 450px, 56px, 0);
-      animation: glitch-anim-1 3s infinite linear alternate-reverse;
-    }
-
-    /* Cyan Channel */
-    .glitch-text::after {
-      left: -2px;
-      text-shadow: -2px 0 #00fff9, 2px 2px #ff00de;
-      animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
-    }
-
-    /* Gradient Text */
-    .glitch-text span {
-      background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* Loading Bar */
-    .loading-bar-container {
-      width: 300px;
-      height: 3px;
-      background: rgba(59, 130, 246, 0.2);
-      margin: 3rem auto 0 auto;
+    /* Progress Bar */
+    .jarvis-progress {
+      width: 400px;
+      height: 4px;
+      background: rgba(0, 168, 255, 0.2);
+      margin: 2rem auto;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
     }
 
-    .loading-bar {
+    .jarvis-progress-bar {
       height: 100%;
-      background: linear-gradient(90deg, #ff00de, #00fff9, #3b82f6, #10b981);
-      background-size: 200% 100%;
+      background: linear-gradient(90deg, #00d9ff, #0088cc);
       width: 0%;
-      animation: gradientShift 3s linear infinite;
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.8);
+      transition: width 0.1s linear;
     }
 
-    /* Percentage Counter */
-    .loading-percentage {
-      color: #00fff9;
-      font-size: 1.5rem;
-      margin-top: 1.5rem;
-      font-family: 'Orbitron', 'Inter', sans-serif;
+    /* Percentage */
+    .percentage-display {
+      font-size: 2.5rem;
+      font-family: 'Orbitron', monospace;
       font-weight: 700;
-      text-shadow: 0 0 15px rgba(0, 255, 249, 0.8);
-      letter-spacing: 0.1em;
-    }
-
-    .loading-text {
-      color: #00fff9;
-      font-size: 0.75rem;
+      color: #00d9ff;
+      text-shadow: 0 0 20px rgba(0, 217, 255, 0.8);
       margin-top: 1rem;
-      font-family: 'Orbitron', 'Inter', sans-serif;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      animation: textPulse 1.5s ease-in-out infinite;
-      text-shadow: 0 0 10px rgba(0, 255, 249, 0.8);
     }
 
-    /* Cyber Grid Background */
-    .cyber-grid {
+    /* Tech Grid Background */
+    .tech-grid {
       position: absolute;
       width: 100%;
       height: 100%;
       background-image:
-        linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(0, 168, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 168, 255, 0.03) 1px, transparent 1px);
       background-size: 50px 50px;
-      animation: gridMove 20s linear infinite;
       z-index: 0;
     }
 
-    /* Radial Glow Background */
-    .radial-glow {
+    /* Data Streams */
+    .data-stream {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(ellipse at center,
-          rgba(59, 130, 246, 0.15) 0%,
-          rgba(16, 185, 129, 0.08) 40%,
-          transparent 70%);
-      z-index: 0;
-      animation: glowPulse 4s ease-in-out infinite;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.7rem;
+      color: rgba(0, 217, 255, 0.4);
+      white-space: nowrap;
     }
 
-    /* Glitch Blocks */
-    .glitch-blocks {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 0;
+    .stream-left {
+      left: 50px;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
-    .glitch-block {
-      position: absolute;
-      background: linear-gradient(135deg, rgba(255, 0, 222, 0.1), rgba(0, 255, 249, 0.1));
-      animation: floatBlock 8s ease-in-out infinite;
-      border: 1px solid rgba(59, 130, 246, 0.2);
+    .stream-right {
+      right: 50px;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
-    .glitch-block:nth-child(1) {
-      width: 80px;
-      height: 80px;
-      top: 10%;
-      left: 15%;
-      animation-delay: 0s;
-      animation-duration: 10s;
-    }
-
-    .glitch-block:nth-child(2) {
-      width: 60px;
-      height: 60px;
-      top: 70%;
-      left: 80%;
-      animation-delay: 2s;
-      animation-duration: 12s;
-    }
-
-    .glitch-block:nth-child(3) {
-      width: 100px;
-      height: 40px;
-      top: 30%;
-      left: 85%;
-      animation-delay: 4s;
-      animation-duration: 15s;
-    }
-
-    .glitch-block:nth-child(4) {
-      width: 70px;
-      height: 70px;
-      top: 80%;
-      left: 10%;
-      animation-delay: 1s;
-      animation-duration: 11s;
-    }
-
-    .glitch-block:nth-child(5) {
-      width: 50px;
-      height: 90px;
-      top: 15%;
-      left: 70%;
-      animation-delay: 3s;
-      animation-duration: 13s;
+    .data-line {
+      margin: 0.3rem 0;
+      animation: dataScroll 3s linear infinite;
     }
 
     /* Animations */
-    @keyframes glitch-anim-1 {
+    @keyframes reactorPulse {
 
       0%,
       100% {
-        clip: rect(42px, 9999px, 44px, 0);
-      }
-
-      10% {
-        clip: rect(12px, 9999px, 59px, 0);
-      }
-
-      20% {
-        clip: rect(48px, 9999px, 29px, 0);
-      }
-
-      30% {
-        clip: rect(18px, 9999px, 83px, 0);
-      }
-
-      40% {
-        clip: rect(32px, 9999px, 52px, 0);
+        box-shadow:
+          0 0 40px rgba(0, 217, 255, 0.8),
+          0 0 80px rgba(0, 217, 255, 0.6),
+          0 0 120px rgba(0, 217, 255, 0.4),
+          inset 0 0 30px rgba(255, 255, 255, 0.3);
       }
 
       50% {
-        clip: rect(26px, 9999px, 40px, 0);
-      }
-
-      60% {
-        clip: rect(51px, 9999px, 14px, 0);
-      }
-
-      70% {
-        clip: rect(2px, 9999px, 37px, 0);
-      }
-
-      80% {
-        clip: rect(28px, 9999px, 65px, 0);
-      }
-
-      90% {
-        clip: rect(16px, 9999px, 45px, 0);
+        box-shadow:
+          0 0 60px rgba(0, 217, 255, 1),
+          0 0 100px rgba(0, 217, 255, 0.8),
+          0 0 150px rgba(0, 217, 255, 0.6),
+          inset 0 0 40px rgba(255, 255, 255, 0.5);
       }
     }
 
-    @keyframes glitch-anim-2 {
-
-      0%,
-      100% {
-        clip: rect(65px, 9999px, 100px, 0);
-      }
-
-      10% {
-        clip: rect(31px, 9999px, 62px, 0);
-      }
-
-      20% {
-        clip: rect(76px, 9999px, 17px, 0);
-      }
-
-      30% {
-        clip: rect(45px, 9999px, 89px, 0);
-      }
-
-      40% {
-        clip: rect(54px, 9999px, 38px, 0);
-      }
-
-      50% {
-        clip: rect(22px, 9999px, 71px, 0);
-      }
-
-      60% {
-        clip: rect(67px, 9999px, 25px, 0);
-      }
-
-      70% {
-        clip: rect(8px, 9999px, 51px, 0);
-      }
-
-      80% {
-        clip: rect(73px, 9999px, 4px, 0);
-      }
-
-      90% {
-        clip: rect(39px, 9999px, 86px, 0);
-      }
-    }
-
-    @keyframes glitch-skew {
-
-      0%,
-      100% {
-        transform: skew(0deg);
-      }
-
-      20% {
-        transform: skew(-2deg);
-      }
-
-      40% {
-        transform: skew(2deg);
-      }
-
-      60% {
-        transform: skew(-1deg);
-      }
-
-      80% {
-        transform: skew(1deg);
-      }
-    }
-
-    @keyframes scanlines {
+    @keyframes ringExpand {
       0% {
-        transform: translateY(0);
-      }
-
-      100% {
-        transform: translateY(10px);
-      }
-    }
-
-    @keyframes scanning {
-      0% {
-        transform: translateY(0);
-      }
-
-      100% {
-        transform: translateY(100vh);
-      }
-    }
-
-    @keyframes gradientShift {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      100% {
-        background-position: 200% 50%;
-      }
-    }
-
-    @keyframes textPulse {
-
-      0%,
-      100% {
-        opacity: 0.6;
-      }
-
-      50% {
         opacity: 1;
-      }
-    }
-
-    @keyframes gridMove {
-      0% {
-        transform: translateY(0);
-      }
-
-      100% {
-        transform: translateY(50px);
-      }
-    }
-
-    @keyframes glowPulse {
-
-      0%,
-      100% {
-        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(0.8);
       }
 
       50% {
-        opacity: 1;
-      }
-    }
-
-    @keyframes floatBlock {
-
-      0%,
-      100% {
-        transform: translate(0, 0) rotate(0deg);
-        opacity: 0.3;
-      }
-
-      25% {
-        transform: translate(20px, -30px) rotate(5deg);
-        opacity: 0.6;
-      }
-
-      50% {
-        transform: translate(-15px, -50px) rotate(-3deg);
-        opacity: 0.4;
-      }
-
-      75% {
-        transform: translate(30px, -25px) rotate(7deg);
         opacity: 0.5;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.2);
+      }
+    }
+
+    @keyframes textGlow {
+
+      0%,
+      100% {
+        text-shadow: 0 0 10px rgba(0, 217, 255, 0.8);
+      }
+
+      50% {
+        text-shadow: 0 0 20px rgba(0, 217, 255, 1),
+          0 0 30px rgba(0, 217, 255, 0.8);
+      }
+    }
+
+    @keyframes dataScroll {
+      0% {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      80% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(10px);
       }
     }
 
     /* Responsive */
     @media (max-width: 768px) {
-      .glitch-text {
-        font-size: 2rem;
+      .arc-reactor {
+        width: 150px;
+        height: 150px;
       }
 
-      .loading-bar-container {
-        width: 250px;
+      .arc-core {
+        width: 60px;
+        height: 60px;
+      }
+
+      .jarvis-progress {
+        width: 300px;
+      }
+
+      .hud-corner {
+        width: 100px;
+        height: 100px;
+      }
+
+      .data-stream {
+        display: none;
       }
     }
   </style>
 </head>
 
 <body>
-  <!-- Loading Screen -->
+  <!-- JARVIS Loading Screen -->
   <div id="preloader">
-    <div class="cyber-grid"></div>
-    <div class="radial-glow"></div>
-    <div class="glitch-blocks">
-      <div class="glitch-block"></div>
-      <div class="glitch-block"></div>
-      <div class="glitch-block"></div>
-      <div class="glitch-block"></div>
-      <div class="glitch-block"></div>
+    <div class="tech-grid"></div>
+
+    <!-- HUD Corners -->
+    <div class="hud-corners">
+      <div class="hud-corner top-left"></div>
+      <div class="hud-corner top-right"></div>
+      <div class="hud-corner bottom-left"></div>
+      <div class="hud-corner bottom-right"></div>
     </div>
-    <div class="preloader-content">
-      <div class="glitch-text" data-text="SHREYANSH_AB">
-        <span>SHREYANSH_AB</span>
+
+    <!-- Data Streams -->
+    <div class="data-stream stream-left">
+      <div class="data-line">SYSTEM: INITIALIZING...</div>
+      <div class="data-line">CORE: ONLINE</div>
+      <div class="data-line">NETWORK: CONNECTED</div>
+      <div class="data-line">SECURITY: ACTIVE</div>
+      <div class="data-line">STATUS: NOMINAL</div>
+    </div>
+
+    <div class="data-stream stream-right">
+      <div class="data-line">PWR: 100%</div>
+      <div class="data-line">CPU: 45%</div>
+      <div class="data-line">MEM: 8.2GB</div>
+      <div class="data-line">LAT: 12ms</div>
+      <div class="data-line">FPS: 60</div>
+    </div>
+
+    <!-- Main Content -->
+    <div style="position: relative; z-index: 10; text-align: center;">
+      <!-- Arc Reactor -->
+      <div class="arc-reactor">
+        <div class="arc-ring"></div>
+        <div class="arc-ring"></div>
+        <div class="arc-ring"></div>
+        <div class="arc-ring"></div>
+        <div class="arc-core"></div>
       </div>
-      <div class="loading-bar-container">
-        <div class="loading-bar" id="loadingBar"></div>
+
+      <!-- System Status -->
+      <div class="system-status">
+        <div class="status-message" id="statusMessage">SYSTEMS INITIALIZING...</div>
+        <div class="system-readout" id="systemReadout">[ LOADING PORTFOLIO INTERFACE ]</div>
       </div>
-      <div class="loading-percentage" id="loadingPercentage">0%</div>
-      <div class="loading-text">Loading</div>
+
+      <!-- Progress Bar -->
+      <div class="jarvis-progress">
+        <div class="jarvis-progress-bar" id="progressBar"></div>
+      </div>
+
+      <!-- Percentage -->
+      <div class="percentage-display" id="percentage">0%</div>
     </div>
   </div>
 
@@ -491,14 +386,26 @@
   <script type="module" src="/src/main.jsx"></script>
 
   <script>
-    // Animate loading bar and percentage from 0 to 100% over 4 seconds
+    // JARVIS-style loading animation
     let progress = 0;
-    const duration = 4000; // 4 seconds
-    const interval = 50; // Update every 50ms
+    const duration = 4000;
+    const interval = 50;
     const increment = (100 / duration) * interval;
 
-    const loadingBar = document.getElementById('loadingBar');
-    const loadingPercentage = document.getElementById('loadingPercentage');
+    const progressBar = document.getElementById('progressBar');
+    const percentage = document.getElementById('percentage');
+    const statusMessage = document.getElementById('statusMessage');
+    const systemReadout = document.getElementById('systemReadout');
+
+    // Status messages that change over time
+    const messages = [
+      { percent: 0, status: 'SYSTEMS INITIALIZING...', readout: '[ LOADING PORTFOLIO INTERFACE ]' },
+      { percent: 20, status: 'LOADING CORE MODULES...', readout: '[ VERIFYING CREDENTIALS ]' },
+      { percent: 40, status: 'ESTABLISHING CONNECTION...', readout: '[ SYNCING DATA STREAMS ]' },
+      { percent: 60, status: 'RENDERING INTERFACE...', readout: '[ COMPILING ASSETS ]' },
+      { percent: 80, status: 'FINALIZING STARTUP...', readout: '[ SYSTEMS ONLINE ]' },
+      { percent: 95, status: 'READY FOR DEPLOYMENT', readout: '[ ALL SYSTEMS NOMINAL ]' }
+    ];
 
     const progressInterval = setInterval(() => {
       progress += increment;
@@ -506,8 +413,18 @@
         progress = 100;
         clearInterval(progressInterval);
       }
-      loadingBar.style.width = progress + '%';
-      loadingPercentage.textContent = Math.floor(progress) + '%';
+
+      progressBar.style.width = progress + '%';
+      percentage.textContent = Math.floor(progress) + '%';
+
+      // Update status messages
+      for (let i = messages.length - 1; i >= 0; i--) {
+        if (progress >= messages[i].percent) {
+          statusMessage.textContent = messages[i].status;
+          systemReadout.textContent = messages[i].readout;
+          break;
+        }
+      }
     }, interval);
   </script>
 </body>

@@ -13,9 +13,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
     if (preloader) {
-        // Remove preloader instantly when loading bar completes (4 seconds)
+        // Remove preloader with quick fade-out after 4 seconds
         setTimeout(() => {
-            preloader.remove();
-        }, 4000); // Matches loading bar animation duration
+            preloader.classList.add('fade-out');
+            // Remove from DOM after fade completes
+            setTimeout(() => {
+                preloader.remove();
+            }, 400); // Match CSS transition duration
+        }, 4000); // 4 seconds loading duration
     }
 });
